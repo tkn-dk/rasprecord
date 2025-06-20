@@ -9,6 +9,7 @@ static void activate (GtkApplication *app, gpointer user_data)
 {
   GtkWidget *window;
   GtkWidget *button;
+  GtkWidget *exit_button;
   GtkWidget *box;
 
   window = gtk_application_window_new (app);
@@ -25,9 +26,12 @@ static void activate (GtkApplication *app, gpointer user_data)
   button = gtk_button_new_with_label ("Hello World");
 
   g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-  //g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), window);
+
+  exit_button = gtk_button_new_with_label ("Exit");
+  g_signal_connect_swapped (exit_button, "clicked", G_CALLBACK (gtk_window_destroy), window);
 
   gtk_box_append (GTK_BOX (box), button);
+  gtk_box_append( GTK_BOX(box), exit_button);
 
   gtk_window_present (GTK_WINDOW (window));
 }
